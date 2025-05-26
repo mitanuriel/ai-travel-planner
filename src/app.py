@@ -36,7 +36,7 @@ if uploaded_files:
             text = ""
         extracted_texts.append(text)
         # Show only first 500 characters as preview
-        st.text_area(f"Extracted from {file.name}", text[:500], height=100)
+        st.text_area(f"Extracted from {file.name}", text[:1000], height=200)
 
 if st.button("Generate Plan"):
     st.info("🔄 This is where the AI-generated travel plan will appear (not yet implemented).")
