@@ -3,11 +3,15 @@ from file_utils import extract_text_from_pdf, extract_text_from_txt
 from firebase_utils import save_plan, load_plan
 from gemini_utils import call_gemini_api
 
-st.set_page_config(page_title="Travel Wizard", page_icon="🧳")
+st.set_page_config(page_title="Travel Wizard", layout="centered")
 
-USER_ID = "user123"
+with open("src/custom_styles.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.title("Travel Wizard 🧳")
+
+USER_ID = "Elina"
+
+st.title("Travel Wizard")
 st.write(
     "Plan your trip with the help of AI! "
     "Upload your travel documents, pick a destination and interests, "
@@ -96,4 +100,11 @@ if st.button("Generate plan with a Travel Wizard"):
     st.info("Contacting travel planner …")
     response = call_gemini_api(prompt)
     st.success("Travel Wizard-Generated Travel Plan:")
-    st.markdown(response)
+    st.markdown(
+    f'<div class="ai-plan-box">{response}</div>',
+    unsafe_allow_html=True
+)
+
+
+
+    st.markdown('</div>', unsafe_allow_html=True)
