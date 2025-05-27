@@ -1,6 +1,7 @@
 import streamlit as st
 from file_utils import extract_text_from_pdf, extract_text_from_txt
 from firebase_utils import save_plan, load_plan
+from gemini_utils import call_gemini_api
 
 st.set_page_config(page_title="AI Travel Planner", page_icon="🧳")
 
@@ -76,6 +77,21 @@ if saved_plan:
 else:
     st.info("No plan found yet. Fill in the form above and save your plan.")
 
-# --- Placeholder for Generate Plan button (future Gemini AI integration) ---
+# --- Gemini AI integration ---
 if st.button("Generate AI Plan"):
-    st.info("🔄 This is where the AI-generated travel plan will appear (not yet implemented).")
+    # Prepare a prompt using user input and/or extracted texts
+    prompt = (
+        f"Create a personalized travel plan for {destination} "
+        f"on these dates: {dates}.\n"
+        f"User's interests: {', '.join(interests)}.\n"
+    )
+    if extracted_texts:
+        prompt += "Here are some documents or notes to consider:\n"
+        for text in extracted_texts:
+            prompt += text[:1000] + "\n"
+    prompt += f"User's own notes: {plan}"
+
+    st.info("Contacting Gemini AI…")
+    response = call_gemini_api(prompt)
+    st.success("AI-Generated Travel Plan:")
+    st.write(response)
