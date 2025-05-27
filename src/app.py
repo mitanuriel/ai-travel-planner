@@ -3,11 +3,11 @@ from file_utils import extract_text_from_pdf, extract_text_from_txt
 from firebase_utils import save_plan, load_plan
 from gemini_utils import call_gemini_api
 
-st.set_page_config(page_title="AI Travel Planner", page_icon="🧳")
+st.set_page_config(page_title="Travel Wizard", page_icon="🧳")
 
 USER_ID = "user123"
 
-st.title("AI Travel Planner 🧳")
+st.title("Travel Wizard 🧳")
 st.write(
     "Plan your trip with the help of AI! "
     "Upload your travel documents, pick a destination and interests, "
@@ -36,7 +36,7 @@ with st.form("plan_form"):
     extracted_texts = []
 
     if uploaded_files:
-        st.subheader("Extracted Text from Files")
+        st.subheader("Extracted text from files")
         for file in uploaded_files:
             if file.name.endswith(".pdf"):
                 text = extract_text_from_pdf(file)
@@ -57,7 +57,7 @@ with st.form("plan_form"):
                 "extracted_texts": extracted_texts,
             }
             save_plan(USER_ID, plan_data)
-            st.success("Plan saved to Firebase!")
+            st.success("Plan saved!")
         else:
             st.warning("Please fill in destination and plan.")
 
@@ -78,12 +78,14 @@ else:
     st.info("No plan found yet. Fill in the form above and save your plan.")
 
 # --- Gemini AI integration ---
-if st.button("Generate AI Plan"):
+if st.button("Generate plan with a Travel Wizard"):
     # Prepare a prompt using user input and/or extracted texts
     prompt = (
-        f"Create a personalized travel plan for {destination} "
-        f"on these dates: {dates}.\n"
-        f"User's interests: {', '.join(interests)}.\n"
+       f"You are an expert travel planner. "
+    f"Create a detailed, day-by-day itinerary for a trip to {destination} "
+    f"on these dates: {dates}.\n"
+    f"User's interests: {', '.join(interests)}.\n"
+    f"End your response with a Markdown table that lists each day, morning, afternoon, and evening activities, plus any notes or recommendations."
     )
     if extracted_texts:
         prompt += "Here are some documents or notes to consider:\n"
@@ -91,7 +93,7 @@ if st.button("Generate AI Plan"):
             prompt += text[:1000] + "\n"
     prompt += f"User's own notes: {plan}"
 
-    st.info("Contacting Gemini AI…")
+    st.info("Contacting travel planner …")
     response = call_gemini_api(prompt)
-    st.success("AI-Generated Travel Plan:")
-    st.write(response)
+    st.success("Travel Wizard-Generated Travel Plan:")
+    st.markdown(response)
