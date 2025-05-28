@@ -1,4 +1,4 @@
-TTechnology used: 
+Technology used: 
 
 Language - Python 3.8 
 
