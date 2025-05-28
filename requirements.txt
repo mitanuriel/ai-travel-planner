@@ -1,0 +1,12 @@
+streamlit
+firebase-admin
+google-cloud-firestore
+google-cloud-storage
+google-auth
+google-api-python-client
+requests
+PyPDF2
+tqdm
+pandas
+openai
+google-generativeai

@@ -2,6 +2,11 @@ import streamlit as st
 from file_utils import extract_text_from_pdf, extract_text_from_txt
 from firebase_utils import save_plan, load_plan
 from gemini_utils import call_gemini_api
+import json
+
+# Load secrets from Streamlit's secrets management
+firebase_config = json.loads(st.secrets["FIREBASE_CONFIG"])
+gemini_api_key = st.secrets["GEMINI_API_KEY"]
 
 st.set_page_config(page_title="Travel Wizard", layout="centered")
 
