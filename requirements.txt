@@ -10,3 +10,4 @@ tqdm
 pandas
 openai
 google-generativeai
+python-dotenv
