@@ -4,6 +4,7 @@ body, .stApp, [data-testid="stAppViewContainer"] {
     background-size: cover;
     min-height: 100vh;
     font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    color: #fff;
 }
 .stApp::before {
     content: "";
@@ -30,22 +31,22 @@ body, .stApp, [data-testid="stAppViewContainer"] {
 }
 .stButton > button:hover {
     transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 4px 18px rgba(34,102,118,0.22);
+    box-shadow: 0 4px 18px rgba(175, 192, 196, 0.22);
     background: #197b85;
 }
 
 h1, h2, h3, h4 {
-    color: #314450 !important;      
+    color: #091a1e;     
     font-weight: 800;
     letter-spacing: 0.02em;
-    text-shadow: 0 2px 14px rgba(0,0,0,0.07);
+    text-shadow: 0 10px 30px rgba(0,0,0,0.07);
 }
 .stMarkdown > h1, .stMarkdown > h2, .stMarkdown > h3, .stMarkdown > h4 {
-    color: #222E36 !important;
+    color: #c6d2da !important;
     font-weight: 700;
 }
 label, .stForm label {
-    color: #E5F6FB !important;      /* Pastel light azure */
+    color: #d4e1e5 !important;     
     font-size: 1.08rem;
     font-weight: 600;
     letter-spacing: 0.01em;
@@ -66,5 +67,68 @@ hr {
     box-shadow: 0 4px 18px rgba(24,54,43,0.12);
     line-height: 1.65;
     overflow-x: auto;
+}
+
+/* Style Streamlit input fields and their inner base elements - 
+had to overwrite the Streamlit deeply nested divs*/
+div[data-baseweb="input"], 
+div[data-baseweb="base-input"],
+div[data-testid="stTextInputRootElement"],
+input[type="text"], textarea {
+    background-color: rgba(255,255,255,0.9) !important;
+    color: #091a1e !important;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+
+/* Target specific nested input elements */
+.stTextInput input,
+.stDateInput input,
+.stMultiSelect [role="combobox"],
+.stMultiSelect [role="option"],
+textarea {
+    background-color: rgba(255,255,255,0.9) !important;
+    color: #091a1e !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Remove residual dark borders */
+div[data-baseweb="input"] {
+    box-shadow: none !important;
+}
+
+/* Dropdown multiselect field for interests */
+div[data-baseweb="select"], 
+div[data-baseweb="select"] > div {
+    background-color: rgba(255,255,255,0.9) !important;
+    color: #091a1e !important;
+    border-radius: 8px !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Dropdown arrow icon */
+div[data-baseweb="select"] svg path {
+    fill: #091a1e !important;
+}
+
+/* File uploader area */
+section[data-testid="stFileUploaderDropzone"], 
+section[data-testid="stFileUploaderDropzone"] div {
+    background-color: rgba(255,255,255,0.9) !important;
+    color: #091a1e !important;
+    border-radius: 8px !important;
+    border: none !important;
+}
+
+/* File uploader button */
+button[data-testid="baseButton-secondary"] {
+    background-color: #136C72 !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    border: none !important;
 }
 
