@@ -6,18 +6,19 @@ from gemini_utils import call_gemini_api
 
 st.set_page_config(page_title="Travel Wizard", layout="wide")
 
+st.markdown("""
+<div style='text-align: center;'>
+    <h1>Travel Wizard</h1>
+    <h6>Plan your trip with the help of AI! Upload your travel documents, pick a destination and interests, and let our app create your itinerary.</h6>
+</div>
+""", unsafe_allow_html=True)
+
 with open("src/custom_styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
 USER_ID = "Elina"
 
-st.title("Travel Wizard")
-st.write(
-    "Plan your trip with the help of AI! "
-    "Upload your travel documents, pick a destination and interests, "
-    "and let our app create your itinerary."
-)
 #Layout 
 left_col, right_col = st.columns(2)
 
@@ -72,6 +73,7 @@ with left_col:
 
 # --- Right Column: Generated plan and display section ---
 with right_col:
+
     st.header("Your Latest Saved Plan")
 
     saved_plan = load_plan(USER_ID)
@@ -87,31 +89,28 @@ with right_col:
     else:
         st.info("No plan found yet. Fill in the form and save your plan.")
 
+        # --- Gemini AI integration ---
+    if st.button("Generate plan with a Travel Wizard", key="generate_plan_button"):
+        prompt = (
+            f"You are an expert travel planner. "
+            f"Create a detailed, day-by-day itinerary for a trip to {destination} "
+            f"on these dates: {dates}.\n"
+            f"User's interests: {', '.join(interests)}.\n"
+            f"End your response with a Markdown table listing each day, morning, afternoon, and evening activities, plus any notes."
+        )
+        if extracted_texts:
+            prompt += "Here are some documents or notes to consider:\n"
+            for text in extracted_texts:
+                prompt += text[:1000] + "\n"
+        prompt += f"User's own notes: {plan}"
 
-# --- Gemini AI integration ---
-if st.button("Generate plan with a Travel Wizard"):
-    # Prepare a prompt using user input and/or extracted texts
-    prompt = (
-       f"You are an expert travel planner. "
-    f"Create a detailed, day-by-day itinerary for a trip to {destination} "
-    f"on these dates: {dates}.\n"
-    f"User's interests: {', '.join(interests)}.\n"
-    f"End your response with a Markdown table that lists each day, morning, afternoon, and evening activities, plus any notes or recommendations."
-    )
-    if extracted_texts:
-        prompt += "Here are some documents or notes to consider:\n"
-        for text in extracted_texts:
-            prompt += text[:1000] + "\n"
-    prompt += f"User's own notes: {plan}"
-
-    st.info("Contacting travel planner …")
-    response = call_gemini_api(prompt)
-    st.success("Travel Wizard-Generated Travel Plan:")
-    st.markdown(
-    f'<div class="ai-plan-box">{response}</div>',
-    unsafe_allow_html=True
-)
-
+        st.info("Contacting travel planner …")
+        response = call_gemini_api(prompt)
+        st.success("Travel Wizard-Generated Travel Plan:")
+        st.markdown(
+            f'<div class="ai-plan-box">{response}</div>',
+            unsafe_allow_html=True
+        )
 
 
     st.markdown('</div>', unsafe_allow_html=True)

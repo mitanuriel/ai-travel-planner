@@ -35,11 +35,11 @@ body, .stApp, [data-testid="stAppViewContainer"] {
     background: #197b85;
 }
 
-h1, h2, h3, h4 {
-    color: #091a1e;     
-    font-weight: 800;
+h1, h2, h3, h4, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4 {
+    color: #136C72 !important; /* soft dark green */
+    font-weight: 700;
     letter-spacing: 0.02em;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    text-shadow: 0 4px 8px rgba(19,108,114,0.2);
 }
 .stMarkdown > h1, .stMarkdown > h2, .stMarkdown > h3, .stMarkdown > h4 {
     color: #c6d2da !important;
