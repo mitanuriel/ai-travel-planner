@@ -132,3 +132,28 @@ button[data-testid="baseButton-secondary"] {
     border: none !important;
 }
 
+/* Browse files button */
+button.st-emotion-cache-1n47svx {
+    background: linear-gradient(90deg, #136C72 0%, #62C9D8 100%) !important;
+    color: #fff !important;
+    border-radius: 12px !important;
+    border: none !important;
+    padding: 10px 16px !important;
+    box-shadow: 0 4px 18px rgba(19,108,114,0.2) !important;
+}
+
+/* Save Plan form submit button */
+button[kind="secondaryFormSubmit"] {
+    background: linear-gradient(90deg, #136C72 0%, #62C9D8 100%) !important;
+    color: #fff !important;
+    border-radius: 12px !important;
+    border: none !important;
+    padding: 10px 16px !important;
+    box-shadow: 0 4px 18px rgba(19,108,114,0.2) !important;
+}
+
+/* Hover effects for both buttons */
+button.st-emotion-cache-1n47svx:hover,
+button[kind="secondaryFormSubmit"]:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 6px 20px rgba(19,108,114,0.3) !important;
